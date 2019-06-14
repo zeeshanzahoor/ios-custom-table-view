@@ -10,14 +10,19 @@ import UIKit
 
 class VideoTableViewController : UITableViewController
 {
-    var video = ["video 1", "video 2", "video 3"]
+    var video = Video.fetchVideos()
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return video.count;
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for:indexPath)
-        cell.textLabel?.text = video[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath) as! VideoTableViewCell;
+        let vid = video[indexPath.row]
+        cell.video = vid;
         return cell;
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true);
     }
 }
